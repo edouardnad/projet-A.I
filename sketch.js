@@ -8,11 +8,11 @@ ml5 Example
 Webcam Image Classification using a pre-trained customized model and p5.js
 This example uses p5 preload function to create the classifier
 === */
-
-// Classifier Variable
+let button;
+ let cameraOn = true;
 let classifier;
 // Model URL
-let imageModelURL = 'https://teachablemachine.withgoogle.com/models/uBm4WpeCH/';
+let imageModelURL = 'https://teachablemachine.withgoogle.com/models/bXy2kDNi/';
 
 // Video
 let video;
@@ -26,34 +26,41 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(320, 260);
+  createCanvas(640, 520);
   // Create the video
   video = createCapture(VIDEO);
-  video.size(320, 240);
+  video.size(640, 480);
   video.hide();
 
   flippedVideo = ml5.flipImage(video)
   // Start classifying
   classifyVideo();
+  button = createButton("Caméra OFF")
+  button.mouseClicked(toggleCamera);
+  button.size(100, 20);
+  button.position(10.480);
 }
 
 function draw() {
-  background(0);
-  // Draw the video
+  background(255,255,0);
+
+
+  if (cameraOn){
   image(flippedVideo, 0, 0);
 
   // Draw the label
-  fill(255);
+  fill(0);
   textSize(16);
   textAlign(CENTER);
   text(label, width / 2, height - 4);
+  }
 }
-
 // Get a prediction for the current video frame
 function classifyVideo() {
+
   flippedVideo = ml5.flipImage(video)
   classifier.classify(flippedVideo, gotResult);
-}
+   }
 
 // When we get a result
 function gotResult(error, results) {
@@ -67,4 +74,16 @@ function gotResult(error, results) {
   label = results[0].label;
   // Classifiy again!
   classifyVideo();
+}
+
+
+function toggleCamera(){
+  cameraOn = !cameraOn;
+
+  if (cameraOn){
+    button.style('background-color',color(0,255,0));
+  }
+  else {
+    button.style('background-color',color(255,0,0));
+  }
 }
