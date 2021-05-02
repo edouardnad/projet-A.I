@@ -12,7 +12,7 @@ let button;
  let cameraOn = true;
 let classifier;
 // Model URL
-let imageModelURL = 'https://teachablemachine.withgoogle.com/models/bXy2kDNi/';
+let imageModelURL = 'https://teachablemachine.withgoogle.com/models/MO62GI5Qo/';
 
 // Video
 let video;
